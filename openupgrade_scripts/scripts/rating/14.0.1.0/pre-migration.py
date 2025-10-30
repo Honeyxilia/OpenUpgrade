@@ -1,7 +1,11 @@
 # Copyright 2021 Tecnativa - Pedro M. Baeza
 # Copyright 2021 ForgeFlow S.L.  <https://www.forgeflow.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import logging
+
 from openupgradelib import openupgrade
+
+_logger = logging.getLogger(__name__)
 
 
 def update_rating_value(env):
@@ -20,4 +24,6 @@ def migrate(env, version):
     openupgrade.rename_xmlids(
         env.cr, [("rating.action_view_rating", "rating.rating_rating_view")]
     )
-    update_rating_value(env)
+    _logger.info(
+        "[Commown OpenUpgrade fork] Skip rating halving to keep the 0-10 range."
+    )
